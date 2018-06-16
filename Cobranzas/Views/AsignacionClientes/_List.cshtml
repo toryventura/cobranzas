@@ -1,0 +1,71 @@
+﻿@model List<Cobranzas.Data.AsignacionCliente>
+
+<table class="table table-bordered table-hover dataTable" id="tbAsignacion">
+    <thead>
+        <tr>
+            <th>
+                Cliente ID
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Fecha de Asginacion
+            </th>
+            <th>
+               Nombre del Cliente
+            </th>
+            <th>
+                Usuario Nombre
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.clienteID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cliente.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuario.UsuarioNombre)
+                    </td>
+                    <td>
+                    <td>
+                        <button type="button" data-id="@item.asignacionclienteID" onclick="details(@item.asignacionclienteID);" class="btn btn-xs btn-default"><samp class="glyphicon glyphicon-eye-open" /> &nbsp;</button>
+                        <button type="button" data-id="@item.asignacionclienteID" onclick="edit(@item.asignacionclienteID);" class="btn btn-xs btn-warning"><samp class="glyphicon glyphicon-pencil" />&nbsp;</button>
+                        <button type="button" data-id="@item.asignacionclienteID" onclick="delet(@item.asignacionclienteID);" class="btn btn-xs btn-danger"><samp class="glyphicon glyphicon-erase" />&nbsp;</button>
+
+                    </td>
+                </tr>
+
+            }
+        }
+
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $('#tbAsignacion').DataTable()
+        //$('#example2').DataTable({
+        //  'paging'      : true,
+        //  'lengthChange': false,
+        //  'searching'   : false,
+        //  'ordering'    : true,
+        //  'info'        : true,
+        //  'autoWidth'   : false
+        //})
+    })
+</script>

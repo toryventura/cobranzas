@@ -1,0 +1,83 @@
+﻿@model Cobranzas.Data.dispositivo
+
+@using (Ajax.BeginForm("Create", "dispositivoes", new AjaxOptions()
+{
+
+    HttpMethod = "POST",
+    OnSuccess = "SuccessCP",
+    OnFailure = "FailCP"
+}, new { id = "asignacionclienteID" }))
+{
+    @Html.AntiForgeryToken()
+    if (Model != null)
+    {
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Registrar Dispositivos</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-horizontal">
+                            
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.imei, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.imei, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.imei, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.dispositivoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.dispositivoID, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.dispositivoID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Guardar" class="btn btn-default" />*@
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    }
+
+}
+<script>
+    function SuccessCP(e) {
+        if (e[0].Key == "OK") {
+            success(e[0].Value);
+            Listar();
+            $('#ModalCreate').modal('hide');
+        } else {
+            error(e[0].Value);
+        }
+    }
+    function FailCP(e) {
+        console.log(e.responseText);
+    }
+</script>

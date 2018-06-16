@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Cobranzas.Data.planPago>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.totalVenta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ncuotas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotaVenta.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.totalVenta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncuotas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.monto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotaVenta.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.planPagoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.planPagoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.planPagoID })
+        </td>
+    </tr>
+}
+
+</table>

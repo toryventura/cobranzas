@@ -1,0 +1,83 @@
+﻿@model List<Cobranzas.Data.NotaVenta>
+<table class="table table-bordered table-hover dataTable" id="tbtable">
+    <thead>
+        <tr>
+            <th>
+                Fecha
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+               NIT
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Cuota
+            </th>
+            <th>
+                Cantidad Cuota
+            </th>
+            <th>
+                Credito
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cuotainicial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cantidadcouta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.formapago)
+                    </td>
+                    
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.notaVentaID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.notaVentaID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.notaVentaID })
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $('#tbtable').DataTable({
+            responsive: true
+        })
+        //$('#example2').DataTable({
+        //  'paging'      : true,
+        //  'lengthChange': false,
+        //  'searching'   : false,
+        //  'ordering'    : true,
+        //  'info'        : true,
+        //  'autoWidth'   : false
+        //})
+    })
+</script>

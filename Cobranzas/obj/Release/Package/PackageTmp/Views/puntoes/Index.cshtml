@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Cobranzas.Data.punto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.latitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dispositivo.modelo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.latitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.longitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dispositivo.modelo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.puntosID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.puntosID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.puntosID })
+        </td>
+    </tr>
+}
+
+</table>

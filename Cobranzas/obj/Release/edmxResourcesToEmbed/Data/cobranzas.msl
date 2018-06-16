@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_A3C345_cobranzasModelStoreContainer" CdmEntityContainer="DB_A3C345_cobranzasEntities">
+    <EntitySetMapping Name="AsignacionClientes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.AsignacionCliente">
+        <MappingFragment StoreEntitySet="AsignacionCliente">
+          <ScalarProperty Name="usuarioID" ColumnName="usuarioID" />
+          <ScalarProperty Name="asignacionclienteID" ColumnName="asignacionclienteID" />
+          <ScalarProperty Name="clienteID" ColumnName="clienteID" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clientes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.cliente">
+        <MappingFragment StoreEntitySet="cliente">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="ci" ColumnName="ci" />
+          <ScalarProperty Name="domicilio" ColumnName="domicilio" />
+          <ScalarProperty Name="otros" ColumnName="otros" />
+          <ScalarProperty Name="clienteID" ColumnName="clienteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="controlPagoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.controlPago">
+        <MappingFragment StoreEntitySet="controlPago">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="fecha_prox" ColumnName="fecha_prox" />
+          <ScalarProperty Name="controlPagoID" ColumnName="controlPagoID" />
+          <ScalarProperty Name="cobradorID" ColumnName="cobradorID" />
+          <ScalarProperty Name="cuotasID" ColumnName="cuotasID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cuotas">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.cuota">
+        <MappingFragment StoreEntitySet="cuotas">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="debe" ColumnName="debe" />
+          <ScalarProperty Name="haber" ColumnName="haber" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="cuotasID" ColumnName="cuotasID" />
+          <ScalarProperty Name="planPagoID" ColumnName="planPagoID" />
+          <ScalarProperty Name="pagado" ColumnName="pagado" />
+          <ScalarProperty Name="fechapagado" ColumnName="fechapagado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleVentas">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.DetalleVenta">
+        <MappingFragment StoreEntitySet="DetalleVenta">
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="precioU" ColumnName="precioU" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="detalleVentaID" ColumnName="detalleVentaID" />
+          <ScalarProperty Name="productoID" ColumnName="productoID" />
+          <ScalarProperty Name="notaVentaID" ColumnName="notaVentaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dispositivoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.dispositivo">
+        <MappingFragment StoreEntitySet="dispositivo">
+          <ScalarProperty Name="modelo" ColumnName="modelo" />
+          <ScalarProperty Name="imei" ColumnName="imei" />
+          <ScalarProperty Name="dispositivoID" ColumnName="dispositivoID" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="MenuPadre" ColumnName="MenuPadre" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="EsGlobal" ColumnName="EsGlobal" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotaVentas">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.NotaVenta">
+        <MappingFragment StoreEntitySet="NotaVenta">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="nit" ColumnName="nit" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="notaVentaID" ColumnName="notaVentaID" />
+          <ScalarProperty Name="clienteID" ColumnName="clienteID" />
+          <ScalarProperty Name="vendedorID" ColumnName="vendedorID" />
+          <ScalarProperty Name="cuotainicial" ColumnName="cuotainicial" />
+          <ScalarProperty Name="cantidadcouta" ColumnName="cantidadcouta" />
+          <ScalarProperty Name="formapago" ColumnName="formapago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfils">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.Perfil">
+        <MappingFragment StoreEntitySet="Perfil">
+          <ScalarProperty Name="PerfilNombre" ColumnName="PerfilNombre" />
+          <ScalarProperty Name="PerfilDescripcion" ColumnName="PerfilDescripcion" />
+          <ScalarProperty Name="PerfilHabilitado" ColumnName="PerfilHabilitado" />
+          <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permisoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.Permiso">
+        <MappingFragment StoreEntitySet="Permiso">
+          <ScalarProperty Name="PermisoNombre" ColumnName="PermisoNombre" />
+          <ScalarProperty Name="PermisoPadreID" ColumnName="PermisoPadreID" />
+          <ScalarProperty Name="PermisoOrden" ColumnName="PermisoOrden" />
+          <ScalarProperty Name="PermisoID" ColumnName="PermisoID" />
+          <ScalarProperty Name="PermisoMenuID" ColumnName="PermisoMenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="planPagoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.planPago">
+        <MappingFragment StoreEntitySet="planPago">
+          <ScalarProperty Name="totalVenta" ColumnName="totalVenta" />
+          <ScalarProperty Name="ncuotas" ColumnName="ncuotas" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="planPagoID" ColumnName="planPagoID" />
+          <ScalarProperty Name="notaVentaID" ColumnName="notaVentaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.producto">
+        <MappingFragment StoreEntitySet="producto">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="productoID" ColumnName="productoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="puntos">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.punto">
+        <MappingFragment StoreEntitySet="puntos">
+          <ScalarProperty Name="latitud" ColumnName="latitud" />
+          <ScalarProperty Name="longitud" ColumnName="longitud" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="puntosID" ColumnName="puntosID" />
+          <ScalarProperty Name="dispositivoID" ColumnName="dispositivoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seguimientoes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.Seguimiento">
+        <MappingFragment StoreEntitySet="Seguimiento">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="seguimientoID" ColumnName="seguimientoID" />
+          <ScalarProperty Name="dispositivoID" ColumnName="dispositivoID" />
+          <ScalarProperty Name="usuarioID" ColumnName="usuarioID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ubicacionCobroes">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.ubicacionCobro">
+        <MappingFragment StoreEntitySet="ubicacionCobro">
+          <ScalarProperty Name="latitud" ColumnName="latitud" />
+          <ScalarProperty Name="longitud" ColumnName="longitud" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="ubicacionCobroID" ColumnName="ubicacionCobroID" />
+          <ScalarProperty Name="clienteID" ColumnName="clienteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="DB_A3C345_cobranzasModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
+          <ScalarProperty Name="UsuarioApellido1" ColumnName="UsuarioApellido1" />
+          <ScalarProperty Name="UsuarioApellido2" ColumnName="UsuarioApellido2" />
+          <ScalarProperty Name="UsuarioEmail" ColumnName="UsuarioEmail" />
+          <ScalarProperty Name="UsuarioTelefono" ColumnName="UsuarioTelefono" />
+          <ScalarProperty Name="UsuarioLogin" ColumnName="UsuarioLogin" />
+          <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
+          <ScalarProperty Name="UsuarioHabilitado" ColumnName="UsuarioHabilitado" />
+          <ScalarProperty Name="UsuarioEsSuperAdmin" ColumnName="UsuarioEsSuperAdmin" />
+          <ScalarProperty Name="UsuarioCambiarContrasena" ColumnName="UsuarioCambiarContrasena" />
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="JoinPerfilToUsuario" TypeName="DB_A3C345_cobranzasModel.JoinPerfilToUsuario" StoreEntitySet="JoinPerfilToUsuario">
+      <EndProperty Name="Perfil">
+        <ScalarProperty Name="PerfilID" ColumnName="perfilID" />
+      </EndProperty>
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="UsuarioID" ColumnName="usuarioID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="JoinPermisoToPerfil" TypeName="DB_A3C345_cobranzasModel.JoinPermisoToPerfil" StoreEntitySet="JoinPermisoToPerfil">
+      <EndProperty Name="Perfil">
+        <ScalarProperty Name="PerfilID" ColumnName="perfilID" />
+      </EndProperty>
+      <EndProperty Name="Permiso">
+        <ScalarProperty Name="PermisoID" ColumnName="permisoID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="JoinPermisoToUsuario" TypeName="DB_A3C345_cobranzasModel.JoinPermisoToUsuario" StoreEntitySet="JoinPermisoToUsuario">
+      <EndProperty Name="Permiso">
+        <ScalarProperty Name="PermisoID" ColumnName="permisoID" />
+      </EndProperty>
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="UsuarioID" ColumnName="usuarioID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

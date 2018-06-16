@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css' rel='stylesheet' />
+@*<style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>*@
+@*<section class="content-header">
+        <h1>
+            Seguimiento
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Seguimiento</li>
+        </ol>
+    </section>*@
+
+
+
+
+<section class="content">
+    <div class="row">
+        <section class="col-lg-12 connectedSortable">
+            <div class="box box-solid bg-aqua-active">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip"
+                                title="Date range">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse"
+                                data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /. tools -->
+
+                    <i class="fa fa-map-marker"></i>
+                    <h3 class="box-title">
+                        Visitors
+                    </h3>
+                </div>
+                <div class="box-body" style="height:500px;">
+                    @*<div id="world-map" style="height: 250px; width: 100%;"></div>*@
+                    <div id="map" style="height: 100%; width: 100%;"></div>
+
+                </div>
+                <div class="box-footer no-border">
+                    <div class="row">
+                       
+                        <div class="col-xs-12 text-center" style="border-right: 1px solid #f4f4f4">
+                            <div id="gridSeguimiento" class="ag-theme-balham" style="height:250px;">  </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+
+        </section>
+    </div>
+</section>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoidG9yeTE3IiwiYSI6ImNqaTIycnd1NjByaTMza21qamsyN2xiejUifQ.KQIthGyRtWxSd2RnnbDTYQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+         style: 'mapbox://styles/mapbox/streets-v10',
+        center: [-63.170991, -17.7720302],
+        zoom: 15
+    });
+
+    var columnDefsSeguimiento = [
+        { headerName: '', width: 34, checkboxSelection: true, suppressSorting: true, suppressMenu: true },
+        { headerName: "Nombre Completo", field: "NombreCompleto", width: 150 },
+        { headerName: "User", field: "Login", width: 150 },
+        { headerName: "Telefono", field: "Telefono", width: 100 },
+        { headerName: "Habilitado", field: "Habilitado", width: 100 },
+        { headerName: "ID", field: "ID", width: 100, hide: "true" }
+
+    ];
+    var gridOptionsSeguimiento = {
+
+        //enableColResize: true,
+        //rowBuffer: 0,
+        //debug: true,
+        //rowSelection: 'multiple',
+        //rowDeselection: true,
+        //columnDefs: columnDefsEnMora,
+        //rowModelType: 'infinite',
+        //maxBlocksInCache: 2,
+        //suppressRowClickSelection: true
+        columnDefs: columnDefsSeguimiento,
+        rowSelection: 'single',
+        enableSorting: true,
+        showToolPanel: true
+    };
+    function Listar() {
+
+        $.ajax({
+            url: "@Url.Action("JsonList", "Seguimientoes")",
+            cache: false,
+            data: {
+            },
+            type: "POST"
+        }).done(function (html) {
+            $("#ListaContenidosContainer").html(html);
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation of Listar clients")
+        });
+    }
+
+    $(document).ready(function (e) {
+      //Listar();
+    });
+
+</script>

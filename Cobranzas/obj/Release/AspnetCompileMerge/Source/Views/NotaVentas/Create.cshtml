@@ -1,0 +1,526 @@
+﻿@using Cobranzas.Data
+@model Cobranzas.Data.NotaVenta
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<producto> product = (List<producto>)ViewBag.productos;
+}
+
+<section class="content-header">
+    <h1>
+        Generar Nota de Venta.
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index","Home")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Nota de venta</li>
+    </ol>
+</section>
+@using (Ajax.BeginForm("Create", "NotaVentas", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "SuccessCP",
+    OnFailure = "FailCP"
+}))
+{
+    @Html.AntiForgeryToken()
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Nota de Venta </h3>
+            </div>
+            <!--end header-->
+            <div class="box-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.clienteID, "clienteID", htmlAttributes: new { @class = "control-label" })
+
+                            @Html.DropDownList("clienteID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.clienteID, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nit, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.nit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nit, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.vendedorID, "vendedorID", htmlAttributes: new { @class = "control-label" })
+
+                            @Html.DropDownList("vendedorID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.vendedorID, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label" })
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @*@Html.EditorFor(model => model.FechaCompromiso, new { htmlAttributes = new { @class = "form-control", data_inputmask = "'alias': 'dd/mm/yyyy'", data_mask = "", } })*@
+                                @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control", data_inputmask = "'alias': 'dd/mm/yyyy'", data_mask = ""} })
+                            </div>
+                           
+                            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Credito", htmlAttributes: new { @class = "control-label" })
+
+                            @Html.CheckBox("formapago", false, new { @class = "control-checkbox", @onchange = "AutoChange(this)" })
+                            @Html.ValidationMessageFor(model => model.formapago, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.total, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.total, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.total, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group" id="ini" style="display:none">
+                            @Html.LabelFor(model => model.cuotainicial, htmlAttributes: new { @class = "control-label " })
+
+                            @Html.EditorFor(model => model.cuotainicial, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.cuotainicial, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group" id="cant" style="display:none">
+                            @Html.LabelFor(model => model.cantidadcouta, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.cantidadcouta, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.cantidadcouta, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group" id="idlist" style="display:none">
+                            
+                            @*@Html.Editor("list", new { htmlAttributes = new { @class = "form-control",@id="idlt" } })*@
+                            <input type="text" id="list" name="list" value="" class="form-control" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="gridDetalle" class="ag-theme-balham" style="height:300px;">  </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <input type="button" value="Añadir items" class="btn btn-default" onclick="addItems();" />
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+}
+<script>
+    //public Nullable < int > cantidad { get; set; }
+    //public Nullable < double > precioU { get; set; }
+    //public Nullable < double > total { get; set; }
+    //public int detalleVentaID { get; set; }
+    //public Nullable < int > productoID { get; set; }
+    //public Nullable < int > notaVentaID { get; set; }
+    function SuccessCP(e) {
+        if (e[0].Key == "OK") {
+            success(e[0].Value);
+           // Listar();
+            $('#ModalCreate').modal('hide');
+        } else {
+            error(e[0].Value);
+        }
+    }
+    function Validate() {
+        var li = getCollectionDetalle();
+        var myJSON = JSON.stringify(li);
+        $('#list').val(myJSON);
+    }
+    function FailCP(e) {
+        console.log(e.responseText);
+    }
+    function AutoChange(e) {
+        
+        if (e.checked) {
+            $('#ini').show();
+            $('#cant').show();
+        } else {
+            $('#ini').hide();
+            $('#cant').hide();
+        }
+    }
+    var list;
+    var prod = [];
+    function SumRows() {
+        var montopaga = 0;
+        var interes = 0;
+        var totl = 0;
+        var result = [];
+        gridOptionsCoutasPagadas.api.forEachNode(function (rowNode, index) {
+            montopaga += rowNode.data.montopagar;
+            interes += rowNode.data.InteresMora;
+
+        });
+        totl = parseFloat(montopaga) + parseFloat(interes);
+        result.push({
+            CodCliente: 'Totales:',
+            Codigo: ' ',
+            NroCuota: ' ',
+            diasAtraso: ' ',
+            montopagar: montopaga,
+            InteresMora: interes,
+            total: totl
+
+        });
+        return result;
+
+    }
+    function sizeRowss() {
+        var i=0
+        gridOptionsDetalle.api.forEachNode(function (rowNode, index) {
+            i++;
+        });
+        i++;
+        return i;
+    }
+    //public Nullable < int > cantidad { get; set; }
+    //    public Nullable < double > precioU { get; set; }
+    //    public Nullable < double > total { get; set; }
+    //    public int detalleVentaID { get; set; }
+    //    public Nullable < int > productoID { get; set; }
+    //    public Nullable < int > notaVentaID { get; set; }
+    
+    //    public virtual NotaVenta NotaVenta { get; set; }
+    //    public virtual producto producto { get; set; }
+    function getCollectionDetalle() {
+        var lis = [];
+        gridOptionsDetalle.api.forEachNode(function (rowNode, index) {
+            var prod = { cantidad: rowNode.data.cantidad, precioU: rowNode.data.precioU, total: rowNode.data.total, detalleVentaID: rowNode.data.nro, productoID: getIdProducto(rowNode.data.productoID), notaVentaID: 0 };
+            lis.push(prod);
+        });
+        return lis;
+    }
+    function getIdProducto(nombre) {
+        var id = 0;
+        list.forEach(function (item) {
+            if (item.nombre == nombre) {
+                id = item.productoID;
+            }
+        })
+        return id;
+    }
+    function sumatotal() {
+        var s = 0;
+        gridOptionsDetalle.api.forEachNode(function (rowNode, index) {
+            s += rowNode.data.total;
+        });
+        return s;
+    }
+    //// select for rows of  frist configurations table clientes
+    function onSelectionChanged() {
+        var selectedRows = gridOptionsDetalle.api.getSelectedRows();
+        var selectedRowsString = '';
+        selectedRows.forEach(function (selectedRow, index) {
+            if (index != 0) {
+                selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.CodCliente;
+        });
+        cargarDatosCleinteID(selectedRowsString);
+        selectedRowsClient = selectedRowsString;
+        //alert(selectedRowsString);
+        //document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+    }
+    var columnDefsDetalle = [
+        { headerName: "Nro", field: "nro", width: 150 },
+        {
+            headerName: 'Nonbre Producto',
+            field: 'productoID',
+            editable: true,
+            cellEditor: 'agSelectCellEditor',
+            cellEditorParams: {
+                values: prod
+            }
+        },
+        { headerName: "Cantidad", field: "cantidad", editable: true, cellEditor: 'numericCellEditor' },
+        { headerName: "Precio ud.", field: "precioU", editable: false },
+        { headerName: "Total", field: "total", editable: false }
+
+    ];
+    function Cargarfila() {
+        var rowData = [];
+        rowData.push({ nro: 1, productoID: 'Idpreducto', cantidad: 0, precioU: 0, total: 0 })
+        gridOptionsDetalle.api.setRowData(rowData);
+    }
+    function addItems() {
+       // var i = gridOptionsDetalle.api.get
+        var items = sizeRowss();
+        var rowData = [];
+        rowData.push({ nro: items, productoID: 'Idpreducto', cantidad: 0, precioU: 0, total: 0 })
+        gridOptionsDetalle.api.insertItemsAtIndex(items, rowData, true);
+    }
+    
+    var gridOptionsDetalle = {
+        // set rowData to null or undefined to show loading panel by default
+        // rowData: rowData,
+        components: {
+            numericCellEditor: getNumericCellEditor(),
+
+        },
+        enableSorting: true,
+        enableFilter: true,
+        defaultColDef: {
+            editable: true
+        },
+        enableColResize: true,
+        columnDefs: columnDefsDetalle,
+
+        //rowSelection: 'multiple',
+        rowSelection: 'single',
+        // onSelectionChanged: onSelectionChanged,
+        //enableRangeSelection: true,
+        pagination: true,
+        onCellValueChanged: function (params) {
+            console.log('onCellValueChanged: ' + params.colDef.field + ' = ' + params.newValue);
+            var colId = params.column.getId();
+            if (colId === 'productoID') {
+
+                //var selectedCountry = params.data.country;
+                var producto = params.data.productoID;
+                var pre = 0;
+                list.forEach(function (item) {
+                    if (producto == item.nombre) {
+                        pre = item.precio;
+                    }
+                })
+                params.node.setDataValue('precioU', pre)
+                //var allowedCities = countyToCityMap[selectedCountry];
+                //var cityMismatch = allowedCities.indexOf(selectedCity) < 0;
+
+                //if (cityMismatch) {
+                //    params.node.setDataValue('city', null);
+                //}
+            }
+            if (colId == 'cantidad') {
+                var cant = params.data.cantidad;
+                var prec = params.data.precioU;
+                var tot = cant * prec;
+                params.node.setDataValue('total', tot);
+                //suma del subtotal
+                var tot = sumatotal();
+                $('#total').val(tot);
+                Validate();
+
+            }
+        },
+        onRowValueChanged: function (event) {
+            var data = event.data;
+            console.log('onRowValueChanged: (' + data.make + ', ' + data.model + ', ' + data.price + ')');
+        }
+        //onRowSelected: rowSelectedFunc,
+        //onSelectionChanged: onSelectionChanged,
+        //rowClicked: onRowClicked
+
+        // custom loading template. the class ag-overlay-loading-center is part of the grid,
+        // it gives a white background and rounded border
+        //overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>',
+        //overlayNoRowsTemplate: '<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">This is a custom \'no rows\' overlay</span>'
+    };
+
+    function getNumericCellEditor() {
+        function isCharNumeric(charStr) {
+            return !!/\d/.test(charStr);
+        }
+
+        function isKeyPressedNumeric(event) {
+            var charCode = getCharCodeFromEvent(event);
+            var charStr = String.fromCharCode(charCode);
+            return isCharNumeric(charStr);
+        }
+
+        function getCharCodeFromEvent(event) {
+            event = event || window.event;
+            return typeof event.which === 'undefined' ? event.keyCode : event.which;
+        }
+
+        // function to act as a class
+        function NumericCellEditor() { }
+
+        // gets called once before the renderer is used
+        NumericCellEditor.prototype.init = function (params) {
+            // we only want to highlight this cell if it started the edit, it is possible
+            // another cell in this row started teh edit
+            this.focusAfterAttached = params.cellStartedEdit;
+
+            // create the cell
+            this.eInput = document.createElement('input');
+            this.eInput.style.width = '100%';
+            this.eInput.style.height = '100%';
+            this.eInput.value = isCharNumeric(params.charPress) ? params.charPress : params.value;
+
+            var that = this;
+            this.eInput.addEventListener('keypress', function (event) {
+                if (!isKeyPressedNumeric(event)) {
+                    that.eInput.focus();
+                    if (event.preventDefault) event.preventDefault();
+                }
+            });
+        };
+
+        // gets called once when grid ready to insert the element
+        NumericCellEditor.prototype.getGui = function () {
+            return this.eInput;
+        };
+
+        // focus and select can be done after the gui is attached
+        NumericCellEditor.prototype.afterGuiAttached = function () {
+            // only focus after attached if this cell started the edit
+            if (this.focusAfterAttached) {
+                this.eInput.focus();
+                this.eInput.select();
+            }
+        };
+
+        // returns the new value after editing
+        NumericCellEditor.prototype.isCancelBeforeStart = function () {
+            return this.cancelBeforeStart;
+        };
+
+        // example - will reject the number if it contains the value 007
+        // - not very practical, but demonstrates the method.
+        NumericCellEditor.prototype.isCancelAfterEnd = function () { };
+
+        // returns the new value after editing
+        NumericCellEditor.prototype.getValue = function () {
+            return this.eInput.value;
+        };
+
+        // when we tab onto this editor, we want to focus the contents
+        NumericCellEditor.prototype.focusIn = function () {
+            var eInput = this.getGui();
+            eInput.focus();
+            eInput.select();
+            console.log('NumericCellEditor.focusIn()');
+        };
+
+        // when we tab out of the editor, this gets called
+        NumericCellEditor.prototype.focusOut = function () {
+            // but we don't care, we just want to print it for demo purposes
+            console.log('NumericCellEditor.focusOut()');
+        };
+
+        return NumericCellEditor;
+    }
+    function CargarGrid() {
+        var gidDiv = document.querySelector('#gridDetalle');
+
+        createGlobal(gridOptionsDetalle, gidDiv);
+        Cargarfila();
+        
+          
+      
+    }
+
+    $(document).ready(function (e) {
+        CargarGrid();
+    list =@Html.Raw(Json.Encode(product));
+       cargarproductos();
+    });
+
+    function cargarproductos() {
+        list.forEach(function (item) {
+            prod.push(item.nombre);
+        })
+    }
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        //CKEDITOR.replace('editor1')
+        ////bootstrap WYSIHTML5 - text editor
+        //$('.textarea').wysihtml5()
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        //Money Euro
+        $('[data-mask]').inputmask()
+        //Timepicker
+        $('.timepicker').timepicker({
+            showInputs: false
+        })
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        })
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        })
+
+        $('.textarea').wysihtml5()
+        //Colorpicker
+        $('.my-colorpicker1').colorpicker()
+        //color picker with addon
+        $('.my-colorpicker2').colorpicker()
+
+
+    })
+</script>

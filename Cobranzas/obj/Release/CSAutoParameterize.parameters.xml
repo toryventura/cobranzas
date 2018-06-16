@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Cobranzas-20180526111124.mdf;Initial Catalog=aspnet-Cobranzas-20180526111124;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\RepGit\\Cobranzas\\Cobranzas\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DB_A3C345_cobranzasEntities-Web.config Connection String" description="DB_A3C345_cobranzasEntities Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Data.cobranzas.csdl|res://*/Data.cobranzas.ssdl|res://*/Data.cobranzas.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=sql7002.site4now.net;initial catalog=DB_A3C345_cobranzas;user id=DB_A3C345_cobranzas_admin;password=cobranzas12345;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\RepGit\\Cobranzas\\Cobranzas\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_A3C345_cobranzasEntities']/@connectionString" />
+  </parameter>
+</parameters>

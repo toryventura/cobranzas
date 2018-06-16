@@ -1,0 +1,123 @@
+﻿
+@model Cobranzas.Entidades.Usuario
+@using (Ajax.BeginForm("Edit", "Usuario", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "SuccessEdit",
+    OnFailure = "FailEdit",
+    OnBegin = "return Validation();"
+
+
+}, new { id = "TipoGestionID" }))
+{
+    if (Model != null)
+    {
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Editar Empleado</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Nombre">Nombre</label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa Nombre" } })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Apellido1">Apellido Paterno</label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Apellido1, new { htmlAttributes = new { @class = " form-control", @placeholder = "Apellido Paterno" } })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Apellido2">Apellido Materno</label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Apellido2, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apellido Materno" } })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Telefono">Telefono </label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefono" } })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Email">Email </label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Login">User </label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @placeholder = "Usuario" } })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="@Model.Contrasena">Contrasena </label>
+                            <div class="col-sm-9">
+
+                                @Html.EditorFor(model => model.Contrasena, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Password", @type = "password" } })
+
+                            </div>
+                        </div>
+                        
+
+                        @Html.HiddenFor(model => model.ID)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Guardar" class="btn btn-default" />*@
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Close</button>
+                    <input class="btn btn-primary" type="submit" value="Guardar" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    }
+
+}
+
+
+<!-- /.modal-dialog -->
+<script>
+    function SuccessEdit(e) {
+        if (e[0].Key == "OK") {
+            success(e[0].Value);
+            Listar();
+            $('#editmodal').modal('hide');
+        } else {
+            error(e[0].Value);
+        }
+    }
+    function FailEdit(e) {
+
+    }
+    function Validation() {
+        return true;
+    }
+</script>

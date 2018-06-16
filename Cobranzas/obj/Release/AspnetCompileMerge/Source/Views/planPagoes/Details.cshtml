@@ -1,0 +1,59 @@
+﻿@model Cobranzas.Data.planPago
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>planPago</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.totalVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ncuotas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncuotas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NotaVenta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NotaVenta.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.planPagoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

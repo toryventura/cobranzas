@@ -1,0 +1,153 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Registrar usuario
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index","Home")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Usuario</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"> </h3>
+
+                    <input class="btn btn-primary   pull-right   margin-r-5" type="button" value="Nuevo Usuario" onclick="newmodal();" />
+                </div>
+                <div class="box-body" id="ListaContenidosContainer">
+                    @Html.Partial("_List", new List<Cobranzas.Entidades.Usuario>())
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="newcreate">
+        <div id="ModalCreate" class="modal  fade in">
+            @Html.Partial("_Create")
+        </div>
+    </div>
+    @*</div>*@
+    <div id="editcontainer">
+        <div id="editmodal" class="modal fade in">
+            @Html.Partial("_Edit")
+        </div>
+    </div>
+    <div id="detalscontainer">
+        <div id="detailsmodal" class="modal fade in">
+            @Html.Partial("_Details")
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+
+    function newmodal() {
+        $.ajax({
+            url: "@Url.Action("Create","Usuario")",
+            cahe: false,
+            data: {},
+            type: "GET"
+        }).done(function (html) {
+            $("#ModalCreate").html(html);
+            $('#ModalCreate').modal('show');
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation")
+        });
+
+    }
+    function details(id) {
+        $.ajax({
+            url: "@Url.Action("Details","Usuario")",
+            cahe: false,
+            data: { id: id },
+            type: "POST"
+        }).done(function (html) {
+            $("#detailsmodal").html(html);
+            $('#detailsmodal').modal('show');
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation")
+        });
+    }
+    function edit(id) {
+        $.ajax({
+            url: "@Url.Action("Edit","Usuario")",
+            cahe: false,
+            data: { id: id },
+            type: "GET"
+        }).done(function (html) {
+            $('#editmodal').html(html);
+            $('#editmodal').modal('show');
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation")
+        });
+    }
+    function delet(id) {
+        reset();
+        alertify.confirm("Esta seguro de Eliminar ?..", function (e) {
+            if (e) {
+                deletes(id);
+
+            } else {
+                error("Se cancelo la operacion");
+            }
+        });
+        return false;
+    }
+    function deletes(id) {
+        $.ajax({
+            url: "@Url.Action("Delete","Usuario")",
+            cahe: false,
+            data: { id: id },
+            type: "POST"
+        }).done(function (html) {
+            if (html[0].Key == "OK") {
+                Listar();
+                success(html[0].Value);
+            } else {
+                error(html[0].Value);
+            }
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation")
+        });
+    }
+
+    function Listar() {
+
+        $.ajax({
+            url: "@Url.Action("Lists", "Usuario")",
+            cache: false,
+            data: {
+            },
+            type: "POST"
+        }).done(function (html) {
+            $("#ListaContenidosContainer").html(html);
+
+        }).fail(function (resp) {
+            console.log(resp.responseText);
+        }).always(function () {
+            console.log("complete the operation of Listar clients")
+        });
+    }
+
+    $(document).ready(function (e) {
+        Listar();
+    });
+
+</script>

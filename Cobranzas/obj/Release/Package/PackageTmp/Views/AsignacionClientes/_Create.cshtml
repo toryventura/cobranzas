@@ -1,0 +1,99 @@
+﻿@model Cobranzas.Data.AsignacionCliente
+
+@using (Ajax.BeginForm("Create", "AsignacionClientes", new AjaxOptions()
+{
+
+    HttpMethod = "POST",
+    OnSuccess = "SuccessCP",
+    OnFailure = "FailCP"
+}, new { id = "asignacionclienteID" }))
+{
+    @Html.AntiForgeryToken()
+    if (Model != null)
+    {
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Registrar Asignacion</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-horizontal">
+                            
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.usuarioID, "usuarioID", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("usuarioID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.usuarioID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.asignacionclienteID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.asignacionclienteID, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.asignacionclienteID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.clienteID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("clienteID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.clienteID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.fechaAsignacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.fechaAsignacion, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.fechaAsignacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Guardar" class="btn btn-default" />*@
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    }
+
+}
+<script>
+    function SuccessCP(e) {
+        if (e[0].Key == "OK") {
+            success(e[0].Value);
+            Listar();
+            $('#ModalCreate').modal('hide');
+        } else {
+            error(e[0].Value);
+        }
+    }
+    function FailCP(e) {
+        console.log(e.responseText);
+    }
+</script>

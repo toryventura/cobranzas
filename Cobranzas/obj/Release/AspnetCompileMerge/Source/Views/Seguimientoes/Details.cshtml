@@ -1,0 +1,51 @@
+﻿@model Cobranzas.Data.Seguimiento
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seguimiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dispositivo.modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dispositivo.modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.UsuarioNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.UsuarioNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.seguimientoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

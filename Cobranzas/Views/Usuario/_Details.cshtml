@@ -1,0 +1,65 @@
+﻿@using Cobranzas.Entidades
+@model Usuario
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Detalles Compromiso de pago</h4>
+        </div>
+        <div class="modal-body">
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ID)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NombreCompleto)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NombreCompleto)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Telefono)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Habilitado)
+                    </dt>
+
+                    <dd>
+                       @Html.DisplayFor(model => model.Habilitado)
+                    </dd>
+
+
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+
+            <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+

@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3C345_cobranzasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AsignacionCliente">
+    <Key>
+      <PropertyRef Name="asignacionclienteID" />
+    </Key>
+    <Property Name="usuarioID" Type="int" />
+    <Property Name="asignacionclienteID" Type="int" Nullable="false" />
+    <Property Name="clienteID" Type="int" />
+    <Property Name="estado" Type="varchar" MaxLength="50" />
+    <Property Name="fechaAsignacion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="cliente">
+    <Key>
+      <PropertyRef Name="clienteID" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="apellido" Type="varchar" MaxLength="100" />
+    <Property Name="telefono" Type="int" />
+    <Property Name="ci" Type="int" />
+    <Property Name="domicilio" Type="varchar" MaxLength="200" />
+    <Property Name="otros" Type="varchar" MaxLength="100" />
+    <Property Name="clienteID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="controlPago">
+    <Key>
+      <PropertyRef Name="controlPagoID" />
+    </Key>
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="estado" Type="varchar" MaxLength="100" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="fecha_prox" Type="datetime" />
+    <Property Name="controlPagoID" Type="int" Nullable="false" />
+    <Property Name="cobradorID" Type="int" />
+    <Property Name="cuotasID" Type="int" />
+  </EntityType>
+  <EntityType Name="cuotas">
+    <Key>
+      <PropertyRef Name="cuotasID" />
+    </Key>
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="debe" Type="float" />
+    <Property Name="haber" Type="float" />
+    <Property Name="saldo" Type="float" />
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="cuotasID" Type="int" Nullable="false" />
+    <Property Name="planPagoID" Type="int" />
+    <Property Name="pagado" Type="int" />
+    <Property Name="fechapagado" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DetalleVenta">
+    <Key>
+      <PropertyRef Name="detalleVentaID" />
+    </Key>
+    <Property Name="cantidad" Type="int" />
+    <Property Name="precioU" Type="float" />
+    <Property Name="total" Type="float" />
+    <Property Name="detalleVentaID" Type="int" Nullable="false" />
+    <Property Name="productoID" Type="int" />
+    <Property Name="notaVentaID" Type="int" />
+  </EntityType>
+  <EntityType Name="dispositivo">
+    <Key>
+      <PropertyRef Name="dispositivoID" />
+    </Key>
+    <Property Name="modelo" Type="varchar" MaxLength="100" />
+    <Property Name="imei" Type="varchar" MaxLength="100" />
+    <Property Name="dispositivoID" Type="int" Nullable="false" />
+    <Property Name="numero" Type="int" />
+  </EntityType>
+  <EntityType Name="JoinPerfilToUsuario">
+    <Key>
+      <PropertyRef Name="usuarioID" />
+      <PropertyRef Name="perfilID" />
+    </Key>
+    <Property Name="usuarioID" Type="int" Nullable="false" />
+    <Property Name="perfilID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JoinPermisoToPerfil">
+    <Key>
+      <PropertyRef Name="perfilID" />
+      <PropertyRef Name="permisoID" />
+    </Key>
+    <Property Name="perfilID" Type="int" Nullable="false" />
+    <Property Name="permisoID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JoinPermisoToUsuario">
+    <Key>
+      <PropertyRef Name="usuarioID" />
+      <PropertyRef Name="permisoID" />
+    </Key>
+    <Property Name="usuarioID" Type="int" Nullable="false" />
+    <Property Name="permisoID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="Texto" Type="varchar" MaxLength="100" />
+    <Property Name="Controlador" Type="varchar" MaxLength="100" />
+    <Property Name="Accion" Type="varchar" MaxLength="100" />
+    <Property Name="MenuPadre" Type="int" />
+    <Property Name="Orden" Type="int" />
+    <Property Name="EsGlobal" Type="bit" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotaVenta">
+    <Key>
+      <PropertyRef Name="notaVentaID" />
+    </Key>
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="nit" Type="int" />
+    <Property Name="total" Type="float" />
+    <Property Name="notaVentaID" Type="int" Nullable="false" />
+    <Property Name="clienteID" Type="int" />
+    <Property Name="vendedorID" Type="int" />
+    <Property Name="cuotainicial" Type="float" />
+    <Property Name="cantidadcouta" Type="int" />
+    <Property Name="formapago" Type="bit" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilID" />
+    </Key>
+    <Property Name="PerfilNombre" Type="varchar" MaxLength="100" />
+    <Property Name="PerfilDescripcion" Type="varchar" MaxLength="100" />
+    <Property Name="PerfilHabilitado" Type="bit" />
+    <Property Name="PerfilID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="PermisoID" />
+    </Key>
+    <Property Name="PermisoNombre" Type="varchar" MaxLength="100" />
+    <Property Name="PermisoPadreID" Type="int" />
+    <Property Name="PermisoOrden" Type="int" />
+    <Property Name="PermisoID" Type="int" Nullable="false" />
+    <Property Name="PermisoMenuID" Type="int" />
+  </EntityType>
+  <EntityType Name="planPago">
+    <Key>
+      <PropertyRef Name="planPagoID" />
+    </Key>
+    <Property Name="totalVenta" Type="int" />
+    <Property Name="ncuotas" Type="int" />
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="monto" Type="int" />
+    <Property Name="planPagoID" Type="int" Nullable="false" />
+    <Property Name="notaVentaID" Type="int" />
+  </EntityType>
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="productoID" />
+    </Key>
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="precio" Type="int" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="productoID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="puntos">
+    <Key>
+      <PropertyRef Name="puntosID" />
+    </Key>
+    <Property Name="latitud" Type="float" />
+    <Property Name="longitud" Type="float" />
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="puntosID" Type="int" Nullable="false" />
+    <Property Name="dispositivoID" Type="int" />
+  </EntityType>
+  <EntityType Name="Seguimiento">
+    <Key>
+      <PropertyRef Name="seguimientoID" />
+    </Key>
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="estado" Type="bit" />
+    <Property Name="seguimientoID" Type="int" Nullable="false" />
+    <Property Name="dispositivoID" Type="int" />
+    <Property Name="usuarioID" Type="int" />
+  </EntityType>
+  <EntityType Name="ubicacionCobro">
+    <Key>
+      <PropertyRef Name="ubicacionCobroID" />
+    </Key>
+    <Property Name="latitud" Type="float" />
+    <Property Name="longitud" Type="float" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="ubicacionCobroID" Type="int" Nullable="false" />
+    <Property Name="clienteID" Type="int" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="UsuarioID" />
+    </Key>
+    <Property Name="UsuarioNombre" Type="varchar" MaxLength="200" />
+    <Property Name="UsuarioApellido1" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioApellido2" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioEmail" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioTelefono" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioLogin" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioContrasena" Type="varchar" MaxLength="100" />
+    <Property Name="UsuarioHabilitado" Type="bit" />
+    <Property Name="UsuarioEsSuperAdmin" Type="bit" />
+    <Property Name="UsuarioCambiarContrasena" Type="bit" />
+    <Property Name="UsuarioID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="captura">
+    <End Role="dispositivo" Type="Self.dispositivo" Multiplicity="0..1" />
+    <End Role="puntos" Type="Self.puntos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dispositivo">
+        <PropertyRef Name="dispositivoID" />
+      </Principal>
+      <Dependent Role="puntos">
+        <PropertyRef Name="dispositivoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AsignacionCliente_cliente">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+    <End Role="AsignacionCliente" Type="Self.AsignacionCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="clienteID" />
+      </Principal>
+      <Dependent Role="AsignacionCliente">
+        <PropertyRef Name="usuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AsignacionCliente_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="AsignacionCliente" Type="Self.AsignacionCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="AsignacionCliente">
+        <PropertyRef Name="usuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_controlPago_cuotas">
+    <End Role="cuotas" Type="Self.cuotas" Multiplicity="0..1" />
+    <End Role="controlPago" Type="Self.controlPago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cuotas">
+        <PropertyRef Name="cuotasID" />
+      </Principal>
+      <Dependent Role="controlPago">
+        <PropertyRef Name="cuotasID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_controlPago_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="controlPago" Type="Self.controlPago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="controlPago">
+        <PropertyRef Name="cobradorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cuotas_planPago">
+    <End Role="planPago" Type="Self.planPago" Multiplicity="0..1" />
+    <End Role="cuotas" Type="Self.cuotas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="planPago">
+        <PropertyRef Name="planPagoID" />
+      </Principal>
+      <Dependent Role="cuotas">
+        <PropertyRef Name="planPagoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleVenta_NotaVenta">
+    <End Role="NotaVenta" Type="Self.NotaVenta" Multiplicity="0..1" />
+    <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotaVenta">
+        <PropertyRef Name="notaVentaID" />
+      </Principal>
+      <Dependent Role="DetalleVenta">
+        <PropertyRef Name="notaVentaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleVenta_producto">
+    <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+    <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="productoID" />
+      </Principal>
+      <Dependent Role="DetalleVenta">
+        <PropertyRef Name="productoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPerfilToUsuario_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="JoinPerfilToUsuario" Type="Self.JoinPerfilToUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="JoinPerfilToUsuario">
+        <PropertyRef Name="perfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPerfilToUsuario_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="JoinPerfilToUsuario" Type="Self.JoinPerfilToUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="JoinPerfilToUsuario">
+        <PropertyRef Name="usuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPermisoToPerfil_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="JoinPermisoToPerfil" Type="Self.JoinPermisoToPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="JoinPermisoToPerfil">
+        <PropertyRef Name="perfilID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPermisoToPerfil_Permiso">
+    <End Role="Permiso" Type="Self.Permiso" Multiplicity="1" />
+    <End Role="JoinPermisoToPerfil" Type="Self.JoinPermisoToPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permiso">
+        <PropertyRef Name="PermisoID" />
+      </Principal>
+      <Dependent Role="JoinPermisoToPerfil">
+        <PropertyRef Name="permisoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPermisoToUsuario_Permiso">
+    <End Role="Permiso" Type="Self.Permiso" Multiplicity="1" />
+    <End Role="JoinPermisoToUsuario" Type="Self.JoinPermisoToUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permiso">
+        <PropertyRef Name="PermisoID" />
+      </Principal>
+      <Dependent Role="JoinPermisoToUsuario">
+        <PropertyRef Name="permisoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoinPermisoToUsuario_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="JoinPermisoToUsuario" Type="Self.JoinPermisoToUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="JoinPermisoToUsuario">
+        <PropertyRef Name="usuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotaVenta_cliente">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+    <End Role="NotaVenta" Type="Self.NotaVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="clienteID" />
+      </Principal>
+      <Dependent Role="NotaVenta">
+        <PropertyRef Name="clienteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotaVenta_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="NotaVenta" Type="Self.NotaVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="NotaVenta">
+        <PropertyRef Name="vendedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Permiso_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+    <End Role="Permiso" Type="Self.Permiso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="Permiso">
+        <PropertyRef Name="PermisoMenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Permiso_Permiso1">
+    <End Role="Permiso" Type="Self.Permiso" Multiplicity="0..1" />
+    <End Role="Permiso1" Type="Self.Permiso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permiso">
+        <PropertyRef Name="PermisoID" />
+      </Principal>
+      <Dependent Role="Permiso1">
+        <PropertyRef Name="PermisoPadreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_planPago_NotaVenta">
+    <End Role="NotaVenta" Type="Self.NotaVenta" Multiplicity="0..1" />
+    <End Role="planPago" Type="Self.planPago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotaVenta">
+        <PropertyRef Name="notaVentaID" />
+      </Principal>
+      <Dependent Role="planPago">
+        <PropertyRef Name="notaVentaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seguimiento_dispositivo">
+    <End Role="dispositivo" Type="Self.dispositivo" Multiplicity="0..1" />
+    <End Role="Seguimiento" Type="Self.Seguimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dispositivo">
+        <PropertyRef Name="dispositivoID" />
+      </Principal>
+      <Dependent Role="Seguimiento">
+        <PropertyRef Name="dispositivoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seguimiento_usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Seguimiento" Type="Self.Seguimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Seguimiento">
+        <PropertyRef Name="usuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tiene">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+    <End Role="ubicacionCobro" Type="Self.ubicacionCobro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="clienteID" />
+      </Principal>
+      <Dependent Role="ubicacionCobro">
+        <PropertyRef Name="clienteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_A3C345_cobranzasModelStoreContainer">
+    <EntitySet Name="AsignacionCliente" EntityType="Self.AsignacionCliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="controlPago" EntityType="Self.controlPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cuotas" EntityType="Self.cuotas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dispositivo" EntityType="Self.dispositivo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JoinPerfilToUsuario" EntityType="Self.JoinPerfilToUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JoinPermisoToPerfil" EntityType="Self.JoinPermisoToPerfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JoinPermisoToUsuario" EntityType="Self.JoinPermisoToUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotaVenta" EntityType="Self.NotaVenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="planPago" EntityType="Self.planPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="puntos" EntityType="Self.puntos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seguimiento" EntityType="Self.Seguimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ubicacionCobro" EntityType="Self.ubicacionCobro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="captura" Association="Self.captura">
+      <End Role="dispositivo" EntitySet="dispositivo" />
+      <End Role="puntos" EntitySet="puntos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AsignacionCliente_cliente" Association="Self.FK_AsignacionCliente_cliente">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="AsignacionCliente" EntitySet="AsignacionCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AsignacionCliente_Usuario" Association="Self.FK_AsignacionCliente_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="AsignacionCliente" EntitySet="AsignacionCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_controlPago_cuotas" Association="Self.FK_controlPago_cuotas">
+      <End Role="cuotas" EntitySet="cuotas" />
+      <End Role="controlPago" EntitySet="controlPago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_controlPago_Usuario" Association="Self.FK_controlPago_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="controlPago" EntitySet="controlPago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cuotas_planPago" Association="Self.FK_cuotas_planPago">
+      <End Role="planPago" EntitySet="planPago" />
+      <End Role="cuotas" EntitySet="cuotas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleVenta_NotaVenta" Association="Self.FK_DetalleVenta_NotaVenta">
+      <End Role="NotaVenta" EntitySet="NotaVenta" />
+      <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleVenta_producto" Association="Self.FK_DetalleVenta_producto">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPerfilToUsuario_Perfil" Association="Self.FK_JoinPerfilToUsuario_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="JoinPerfilToUsuario" EntitySet="JoinPerfilToUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPerfilToUsuario_Usuario" Association="Self.FK_JoinPerfilToUsuario_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="JoinPerfilToUsuario" EntitySet="JoinPerfilToUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPermisoToPerfil_Perfil" Association="Self.FK_JoinPermisoToPerfil_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="JoinPermisoToPerfil" EntitySet="JoinPermisoToPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPermisoToPerfil_Permiso" Association="Self.FK_JoinPermisoToPerfil_Permiso">
+      <End Role="Permiso" EntitySet="Permiso" />
+      <End Role="JoinPermisoToPerfil" EntitySet="JoinPermisoToPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPermisoToUsuario_Permiso" Association="Self.FK_JoinPermisoToUsuario_Permiso">
+      <End Role="Permiso" EntitySet="Permiso" />
+      <End Role="JoinPermisoToUsuario" EntitySet="JoinPermisoToUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoinPermisoToUsuario_Usuario" Association="Self.FK_JoinPermisoToUsuario_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="JoinPermisoToUsuario" EntitySet="JoinPermisoToUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotaVenta_cliente" Association="Self.FK_NotaVenta_cliente">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="NotaVenta" EntitySet="NotaVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotaVenta_Usuario" Association="Self.FK_NotaVenta_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="NotaVenta" EntitySet="NotaVenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Permiso_Menu" Association="Self.FK_Permiso_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Permiso" EntitySet="Permiso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Permiso_Permiso1" Association="Self.FK_Permiso_Permiso1">
+      <End Role="Permiso" EntitySet="Permiso" />
+      <End Role="Permiso1" EntitySet="Permiso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_planPago_NotaVenta" Association="Self.FK_planPago_NotaVenta">
+      <End Role="NotaVenta" EntitySet="NotaVenta" />
+      <End Role="planPago" EntitySet="planPago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seguimiento_dispositivo" Association="Self.FK_Seguimiento_dispositivo">
+      <End Role="dispositivo" EntitySet="dispositivo" />
+      <End Role="Seguimiento" EntitySet="Seguimiento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seguimiento_usuario" Association="Self.FK_Seguimiento_usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Seguimiento" EntitySet="Seguimiento" />
+    </AssociationSet>
+    <AssociationSet Name="tiene" Association="Self.tiene">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="ubicacionCobro" EntitySet="ubicacionCobro" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

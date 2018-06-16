@@ -1,0 +1,91 @@
+﻿@model Cobranzas.Data.NotaVenta
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NotaVenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cuotainicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cuotainicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadcouta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadcouta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.formapago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.formapago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cliente.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cliente.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.UsuarioNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.UsuarioNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.notaVentaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
